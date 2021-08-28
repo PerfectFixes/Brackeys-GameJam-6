@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-
+    List<string> debuffs = new List<string>() { "Bad Platform", "Raising Lava", "DJCancel", "Invert Controls", "Flip Map", "Timer On", "Random Kill" };
     public void ChangeScene()
     {
         //Load the level as you left it
@@ -25,6 +25,17 @@ public class MainMenuManager : MonoBehaviour
         PlayerPrefs.SetString("Invert Controls", "False");
         PlayerPrefs.SetString("Flip Map", "False");
         PlayerPrefs.SetString("Random Kill", "False");
+
+
+        //Saving the original debuff list to a PlayerPrefs
+        for (int i = 0; i < debuffs.Count; i++)
+        {
+            PlayerPrefs.SetString("debuffs" + i, debuffs[i]);
+        }
+
+        //Saving the debuff list count to a PlayerPrefs
+        PlayerPrefs.SetInt("debuffsCount", debuffs.Count);
+
 
         //Loading the level
         SceneManager.LoadScene("The Level");

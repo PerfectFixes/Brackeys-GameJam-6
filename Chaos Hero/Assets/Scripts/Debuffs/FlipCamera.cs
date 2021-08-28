@@ -9,7 +9,6 @@ public class FlipCamera : MonoBehaviour
     {
         if (PlayerPrefs.GetString("Flip Map") == "True")
         {
-            print("Flipping the camera");
             transform.rotation = Quaternion.Euler(0, 0, 180);
         }
     }

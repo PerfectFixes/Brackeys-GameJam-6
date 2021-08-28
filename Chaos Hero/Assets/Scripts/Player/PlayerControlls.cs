@@ -8,9 +8,20 @@ public class PlayerControlls : MonoBehaviour
     float xPos;
     float speed = 7f;
     int jumpCounter = 0;
-
+    int badNumber;
+    int randomNum;
     void Start()
     {
+        //Kills the player if he gets the debuff
+        if (PlayerPrefs.GetString("Random Kill") == "True")
+        {
+            randomNum = Random.Range(1, 21);
+
+            print(randomNum + " Normal Number");
+
+            StartCoroutine(KillPlayer());
+        }
+
         playerRB = GetComponent<Rigidbody2D>();
         if(PlayerPrefs.GetString("Invert Controls") == "True")
         {
@@ -30,6 +41,7 @@ public class PlayerControlls : MonoBehaviour
     {
         xPos = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
         transform.Translate(xPos, 0, 0);
+       
     }
     private void Update()
     {
@@ -43,6 +55,21 @@ public class PlayerControlls : MonoBehaviour
             jumpCounter++;
             playerRB.AddForce(new Vector2(0, 150));
         }
+    }
+    public IEnumerator KillPlayer()
+    {
+        badNumber = Random.Range(1, 21);
+
+        yield return new WaitForSeconds(5);
+
+        if (randomNum == badNumber)
+        {
+            SceneManager.LoadScene("The Level");
+        }
+
+        print(badNumber + " Bad number");
+
+        StartCoroutine(KillPlayer());
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
