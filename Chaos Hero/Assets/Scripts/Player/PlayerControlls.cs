@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class PlayerControlls : MonoBehaviour
 {
     Rigidbody2D playerRB;
@@ -10,16 +11,34 @@ public class PlayerControlls : MonoBehaviour
     int jumpCounter = 0;
     int badNumber;
     int randomNum;
+
+    [Header("RNG Text")]
+    public Text luckyNumText;
+    public Text killNumText;
+    public Text luckyNumParent;
+    public Text killNumParent;
+
+    [Header("SFX")]
+    public AudioSource audioManager;
+    public AudioClip firstJump;
+    public AudioClip secondJump;
+
     void Start()
     {
+        
         //Kills the player if he gets the debuff
         if (PlayerPrefs.GetString("Random Kill") == "True")
         {
             randomNum = Random.Range(1, 21);
 
-            print(randomNum + " Normal Number");
+            luckyNumText.text = randomNum.ToString();
 
             StartCoroutine(KillPlayer());
+        }
+        else
+        {
+            luckyNumParent.gameObject.SetActive(false);
+            killNumParent.gameObject.SetActive(false);
         }
 
         playerRB = GetComponent<Rigidbody2D>();
@@ -39,7 +58,8 @@ public class PlayerControlls : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        xPos = Input.GetAxis("Horizontal") * speed * Time.deltaTime;
+        xPos = Input.GetAxis("Horizontal") * speed * Time.fixedDeltaTime;
+
         transform.Translate(xPos, 0, 0);
        
     }
@@ -47,11 +67,13 @@ public class PlayerControlls : MonoBehaviour
     {
         if (Input.GetKeyDown("space") && jumpCounter == 0)
         {
+            audioManager.PlayOneShot(firstJump);
             jumpCounter++;
             playerRB.AddForce(new Vector2(0, 370));
         }
         else if (Input.GetKeyDown("space") && (jumpCounter == 1) && (PlayerPrefs.GetString("DJCancel") == "False"))
         {
+            audioManager.PlayOneShot(secondJump);
             jumpCounter++;
             playerRB.AddForce(new Vector2(0, 150));
         }
@@ -60,15 +82,19 @@ public class PlayerControlls : MonoBehaviour
     {
         badNumber = Random.Range(1, 21);
 
-        yield return new WaitForSeconds(5);
+        killNumText.text = badNumber.ToString();
 
         if (randomNum == badNumber)
         {
+            //Bad Lucky SFX
+            PlayerPrefs.SetString("RandomDeath", "True");
             SceneManager.LoadScene("The Level");
         }
 
-        print(badNumber + " Bad number");
 
+        yield return new WaitForSeconds(5);
+
+        
         StartCoroutine(KillPlayer());
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -77,14 +103,13 @@ public class PlayerControlls : MonoBehaviour
         {
             jumpCounter = 0;
         }
-
         if (collision.gameObject.tag == "Lava")
         {
             SceneManager.LoadScene("The Level");
         }
         if (collision.gameObject.tag == "Enemy")
         {
-            Destroy(collision.gameObject);
+            SceneManager.LoadScene("The Level");
         }
     }
 }

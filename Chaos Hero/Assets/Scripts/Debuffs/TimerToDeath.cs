@@ -6,7 +6,10 @@ using UnityEngine.SceneManagement;
 
 public class TimerToDeath : MonoBehaviour
 {
-    public int countdownTime;
+    public AudioSource audiomanager;
+    public AudioClip timeUpSFX;
+
+    private int countdownTime = 60;
     public Text countdownDisplay;
     public Text countdownText;
     private void Start()
@@ -25,13 +28,19 @@ public class TimerToDeath : MonoBehaviour
     {
         while (countdownTime > 0)
         {
+            if (countdownTime == 10)
+            {
+                audiomanager.PlayOneShot(timeUpSFX);
+            }
             countdownDisplay.text = countdownTime.ToString();
             yield return new WaitForSeconds(1);
 
             countdownTime--;
         }
         countdownDisplay.text = "Now";
-        
+       
+        //Times Up SFX
+
         yield return new WaitForSeconds(1);
 
         SceneManager.LoadScene("The Level");

@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/The Level.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/You Won.unity
+    guid: 3ad74e22256fdf244aa8711e202e36c8
   m_configObjects: {}

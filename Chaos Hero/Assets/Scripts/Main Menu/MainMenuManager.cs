@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
-    List<string> debuffs = new List<string>() { "Bad Platform", "Raising Lava", "DJCancel", "Invert Controls", "Flip Map", "Timer On", "Random Kill" };
+    List<string> debuffs = new List<string>() { "Bad Platform", "Raising Lava", "DJCancel", "Invert Controls", "Flip Map", "Timer On", "Random Kill", "Raining Meteores" };
     public void ChangeScene()
     {
         //Load the level as you left it
@@ -16,15 +16,31 @@ public class MainMenuManager : MonoBehaviour
     {
         //Resetting all of the playerprefs to start a frash new game
         PlayerPrefs.SetString("DJCancel", "False");
+        PlayerPrefs.SetString("DJCancelText", "False");
+
         PlayerPrefs.SetString("Bad Platform", "False");
+        PlayerPrefs.SetString("Bad Platform Text", "False");
+
         PlayerPrefs.SetString("Adding Enemies", "False");
         PlayerPrefs.SetString("Better Enemies", "False");
-        PlayerPrefs.SetString("Raining meteores", "False");
+
+        PlayerPrefs.SetString("Raining Meteores", "False");
+        PlayerPrefs.SetString("Raining Meteores Text", "False");
+
         PlayerPrefs.SetString("Timer On", "False");
+        PlayerPrefs.SetString("Timer On Text", "False");
+
         PlayerPrefs.SetString("Raising Lava", "False");
+        PlayerPrefs.SetString("Raising Lava Text", "False");
+
         PlayerPrefs.SetString("Invert Controls", "False");
+        PlayerPrefs.SetString("Invert Controls Text", "False");
+
         PlayerPrefs.SetString("Flip Map", "False");
+        PlayerPrefs.SetString("Flip Map Text", "False");
+
         PlayerPrefs.SetString("Random Kill", "False");
+        PlayerPrefs.SetString("Random Kill Text", "False");
 
 
         //Saving the original debuff list to a PlayerPrefs
