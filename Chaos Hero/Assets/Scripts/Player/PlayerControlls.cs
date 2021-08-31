@@ -29,7 +29,7 @@ public class PlayerControlls : MonoBehaviour
         //Kills the player if he gets the debuff
         if (PlayerPrefs.GetString("Random Kill") == "True")
         {
-            randomNum = Random.Range(1, 21);
+            randomNum = Random.Range(1, 36);
 
             luckyNumText.text = randomNum.ToString();
 
@@ -80,7 +80,7 @@ public class PlayerControlls : MonoBehaviour
     }
     public IEnumerator KillPlayer()
     {
-        badNumber = Random.Range(1, 21);
+        badNumber = Random.Range(1, 36);
 
         killNumText.text = badNumber.ToString();
 
