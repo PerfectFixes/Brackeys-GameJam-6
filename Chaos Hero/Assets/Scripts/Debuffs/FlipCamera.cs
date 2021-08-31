@@ -6,7 +6,7 @@ public class FlipCamera : MonoBehaviour
 {
     public Transform playerPosition;
     public GameObject meteorPrefab;
-    private float respawnTime = 1.2f;
+    private float respawnTime = 1.5f;
     void Start()
     {
         if (PlayerPrefs.GetString("Flip Map") == "True")

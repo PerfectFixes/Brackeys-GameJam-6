@@ -9,8 +9,6 @@ public class FlagDebuff : MonoBehaviour
     int debuffChosen;
     int debuffListLoadCount;
 
-    public GameObject sfxPrefab;
-
     List<string> debuffs = new List<string>();
     void Start()
     {
